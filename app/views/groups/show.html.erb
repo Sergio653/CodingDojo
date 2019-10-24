@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3><%= @org.name %></h3>
+            <p><%= @org.desc %></p>
+            <% if @org.users.include?(current_user) %>
+                <form class="form-group" action="<%= join_path(@org.id) %>" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="join[user_id]" value="<%= current_user.id %>">
+                    <input type="hidden" name="join[org_id]" value="<%= @org.id %>">
+                    <input class="form-control" type="submit" value="Leave Group">
+                </form>
+            <% else %>
+                <form class="form-gorup" action="/joins" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="join[org_id]" value="<%= @org.id %>">
+                    <input type="hidden" name="join[user_id]" value="<%= current_user.id %>">
+                    <input class="form-control" type="submit" value="Join Group">
+                </form>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4> Created By: <%= @org.user.first_name %> <%= @org.user.last_name %></h4>
+            <h4>Members: <%= @org.users.count%></h4>
+            
+            <hr>
+            <% @org.users.each do |u| %>
+                <ul>
+                <li><%= u.first_name%> <%= u.last_name %></li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>

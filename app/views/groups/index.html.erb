@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Here are the organications you may join:</h3>
+                <% @orgs.each do |org| %>
+                    <div class="card p-3">
+                        <h2><a href="<%= group_path(org.id) %>"><%= org.name %></a></h2>
+                        <p>Members: <%= org.users.count %></p>
+                        <p><%= org.desc %></p>
+                        <% if current_user == org.user %>
+                            <a href="<%= group_path(org.id)%>" data-method="delete">Delete Org</a>
+                        <% end %>
+                    </div>
+                <%end %>
+        </div>
+        <div class="col">
+            <form class="form-group" action="/groups" method="post">
+                <input  type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="hidden" name="org[user_id]" value="<%= current_user.id %>">
+                <p>Org Name: <input class="form-control" type="text" name="org[name]"></p>
+                <p>Description: <textarea class="form-control"  name="org[desc]"cols="30" rows="10"></textarea></p>
+                <input class="form-control" type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+</div>

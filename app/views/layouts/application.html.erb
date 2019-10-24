@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyExam</title>
+    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header class="bg-dark">
+    <div class="container">
+      <div class="row text-light justify-content-between">
+        <div class="col">
+        <% if current_user %>
+        <h1>Welcome <%= current_user.first_name %></h1>
+        <form action="/sessions/<%=current_user.id%>" method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Log Out">
+        </form>
+        <button ><a class="text-dark" href="<%= groups_path %>">Home</a></button>
+        <% else %>
+        <h1>Welcome</h1>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    <% if flash[:success] %>
+      <p><%= flash[:success] %></p>
+    <% end %>
+
+  	<% if flash[:errors] %>
+      <div id="alert">
+        <p><%= flash[:errors] %></p>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
+
+
+

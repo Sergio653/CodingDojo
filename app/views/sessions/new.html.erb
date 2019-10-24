@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-4 bg-light">
+            <h2>Register</h2>
+            <form class="form-group" action="/users" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <p>First Name: <input class="form-control" type="text" name="user[first_name]"></p>
+                <p>Last Name: <input class="form-control" type="text" name="user[last_name]"></p>
+                <p>Email: <input class="form-control" type="email" name="user[email]"></p>
+                <p>Password: <input  class="form-control" type="password" name="user[password]"></p>
+                <p> Confirm Password: <input class="form-control" type="password" name="user[password_confirmation]"></p>
+                <input class="form-control" type="submit" value="Register">
+            </form>
+        </div>
+        <div class="col-md-4 bg-light">
+            <h3>Login</h3>
+            <form  class="form-group"action="/sessions" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <p>Email: <input class="form-control" type="email" name="user[email]"></p>
+                <p>Password: <input class="form-control" type="password" name="user[password]"></p>
+                <input class="form-control" type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+</div>
